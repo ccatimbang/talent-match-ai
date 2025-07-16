@@ -1,0 +1,38 @@
+Jane Doe
+Senior Software Engineer
+
+SUMMARY
+Experienced software engineer with 8 years of expertise in building scalable backend systems and machine learning applications. Strong focus on Python development, cloud architecture, and AI/ML technologies.
+
+SKILLS
+Programming Languages: Python (Expert), JavaScript (Intermediate), Go (Beginner)
+Frameworks: Django, FastAPI, TensorFlow, PyTorch
+Cloud & DevOps: AWS, Docker, Kubernetes
+Databases: PostgreSQL, MongoDB, Redis
+ML/AI: LangChain, OpenAI, Hugging Face Transformers
+
+EXPERIENCE
+
+Senior Backend Engineer | AI Solutions Inc. | 2020 - Present
+- Led development of ML model serving infrastructure handling 1M+ daily requests
+- Designed and implemented distributed job processing system using Python and Redis
+- Mentored junior engineers and established coding standards
+
+Machine Learning Engineer | Tech Innovators | 2018 - 2020
+- Developed NLP pipelines for text classification and entity extraction
+- Optimized model training workflows reducing training time by 40%
+- Implemented real-time inference API using FastAPI and TensorFlow Serving
+
+Software Engineer | Cloud Systems Corp | 2015 - 2018
+- Built microservices architecture for data processing pipeline
+- Managed PostgreSQL databases and implemented caching solutions
+- Developed CI/CD pipelines using Jenkins and Docker
+
+EDUCATION
+M.S. Computer Science | Stanford University | 2015
+B.S. Computer Science | UC Berkeley | 2013
+
+CERTIFICATIONS
+- AWS Certified Solutions Architect
+- Deep Learning Specialization (Coursera)
+- Machine Learning Professional Certificate (Stanford Online) 

@@ -1,0 +1,68 @@
+{
+    "jobs": [
+        {
+            "id": "ml-eng-01",
+            "title": "Senior ML Engineer",
+            "description": "Join our AI team to build and deploy cutting-edge machine learning models at scale. Focus on NLP and large language models.",
+            "required_skills": [
+                {"name": "Python", "level": "expert"},
+                {"name": "PyTorch", "level": "expert"},
+                {"name": "Machine Learning", "level": "expert"}
+            ],
+            "preferred_skills": [
+                {"name": "LangChain", "level": "intermediate"},
+                {"name": "AWS", "level": "intermediate"},
+                {"name": "Kubernetes", "level": "intermediate"}
+            ],
+            "min_experience_years": 5
+        },
+        {
+            "id": "backend-eng-01",
+            "title": "Principal Backend Engineer",
+            "description": "Lead the development of our distributed backend systems. Focus on scalability, performance, and system design.",
+            "required_skills": [
+                {"name": "Python", "level": "expert"},
+                {"name": "PostgreSQL", "level": "expert"},
+                {"name": "System Design", "level": "expert"}
+            ],
+            "preferred_skills": [
+                {"name": "Go", "level": "intermediate"},
+                {"name": "Kubernetes", "level": "intermediate"},
+                {"name": "Redis", "level": "intermediate"}
+            ],
+            "min_experience_years": 8
+        },
+        {
+            "id": "fullstack-eng-01",
+            "title": "Senior Full Stack Engineer",
+            "description": "Build modern web applications with focus on both frontend and backend technologies.",
+            "required_skills": [
+                {"name": "Python", "level": "expert"},
+                {"name": "JavaScript", "level": "expert"},
+                {"name": "React", "level": "expert"}
+            ],
+            "preferred_skills": [
+                {"name": "TypeScript", "level": "intermediate"},
+                {"name": "AWS", "level": "intermediate"},
+                {"name": "PostgreSQL", "level": "intermediate"}
+            ],
+            "min_experience_years": 5
+        },
+        {
+            "id": "ai-eng-01",
+            "title": "AI Systems Engineer",
+            "description": "Design and implement AI/ML infrastructure and deployment pipelines. Focus on scalable model serving and MLOps.",
+            "required_skills": [
+                {"name": "Python", "level": "expert"},
+                {"name": "Docker", "level": "expert"},
+                {"name": "Kubernetes", "level": "expert"}
+            ],
+            "preferred_skills": [
+                {"name": "TensorFlow Serving", "level": "intermediate"},
+                {"name": "AWS", "level": "expert"},
+                {"name": "MLOps", "level": "intermediate"}
+            ],
+            "min_experience_years": 6
+        }
+    ]
+} 
