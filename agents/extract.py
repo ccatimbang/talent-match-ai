@@ -4,6 +4,7 @@ import os
 from langchain_core.messages import HumanMessage
 from langchain_openai import ChatOpenAI
 from models import GraphState, CandidateProfile, Skill
+from utils import safe_parse_llm_json
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -13,9 +14,9 @@ EXTRACTION_PROMPT = """
 Extract structured information from the following resume text. Return a JSON object with the following fields:
 - name: The candidate's full name
 - title: Their current or most recent job title
-- skills: List of technical skills with optional level (beginner/intermediate/expert) and years of experience
+- skills: List of technical skills with fields: name (required), level (optional), years (optional)
 - experience_years: Total years of professional experience (float)
-- education: List of education entries
+- education: List of education entries as strings (e.g., "Degree, Institution, Year")
 - summary: Brief professional summary
 
 Resume text:
@@ -62,7 +63,11 @@ class ExtractAgent:
             if isinstance(skill, str):
                 skills.append(Skill(name=skill))
             elif isinstance(skill, dict):
-                skills.append(Skill(**skill))
+                # Handle field mapping - LLM might return 'skill' instead of 'name'
+                skill_dict = skill.copy()
+                if 'skill' in skill_dict and 'name' not in skill_dict:
+                    skill_dict['name'] = skill_dict.pop('skill')
+                skills.append(Skill(**skill_dict))
         return skills
 
     async def __call__(self, state: GraphState) -> GraphState:
@@ -86,15 +91,36 @@ class ExtractAgent:
                 
                 response = await self.model.ainvoke(messages)
                 
-                # Parse the JSON response
-                data = json.loads(response.content)
+                # Parse the JSON response with robust parsing
+                data = safe_parse_llm_json(response.content, SAMPLE_PROFILE)
                 
                 # Convert skills data to Skill objects
                 skills = self.parse_skills(data.pop("skills", []))
                 
+                # Ensure education is a list of strings
+                education = data.pop("education", [])
+                if education and isinstance(education, list):
+                    # Convert education objects to strings if needed
+                    education_strings = []
+                    for edu in education:
+                        if isinstance(edu, dict):
+                            # Convert dict to string format
+                            parts = []
+                            if edu.get('degree'):
+                                parts.append(edu['degree'])
+                            if edu.get('school'):
+                                parts.append(edu['school'])
+                            if edu.get('year'):
+                                parts.append(str(edu['year']))
+                            education_strings.append(', '.join(parts))
+                        elif isinstance(edu, str):
+                            education_strings.append(edu)
+                    education = education_strings
+                
                 # Create CandidateProfile
                 profile = CandidateProfile(
                     skills=skills,
+                    education=education,
                     **data
                 )
                 

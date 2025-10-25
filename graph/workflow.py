@@ -14,7 +14,7 @@ def create_talent_match_graph() -> StateGraph:
     """Create the talent matching workflow graph"""
     
     # Initialize workflow graph
-    workflow = StateGraph(state_schema=GraphState)
+    workflow = StateGraph(GraphState)
     
     # Add nodes
     workflow.add_node("ingest", IngestAgent())

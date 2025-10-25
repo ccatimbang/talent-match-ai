@@ -17,11 +17,11 @@ async def match_resume(resume: UploadFile = File(...)):
     Upload a resume PDF and get matching job recommendations
     """
     try:
-        # Validate file type
-        if not resume.content_type or 'pdf' not in resume.content_type.lower():
+        # Validate file type - accept both PDF and text files for testing
+        if not resume.content_type or ('pdf' not in resume.content_type.lower() and 'text' not in resume.content_type.lower()):
             raise HTTPException(
                 status_code=400, 
-                detail="Invalid file type. Please upload a PDF file."
+                detail="Invalid file type. Please upload a PDF or text file."
             )
         
         # Read resume file
@@ -38,15 +38,24 @@ async def match_resume(resume: UploadFile = File(...)):
         )
         
         # Run workflow
-        final_state = await graph.ainvoke(state)
+        try:
+            final_state = await graph.ainvoke(state)
+        except Exception as workflow_error:
+            raise HTTPException(status_code=500, detail=f"Workflow execution failed: {str(workflow_error)}")
         
-        if final_state.error:
-            raise HTTPException(status_code=400, detail=final_state.error)
-            
-        if not final_state.job_matches:
-            raise HTTPException(status_code=404, detail="No matching jobs found")
-            
-        return final_state.job_matches
+        # Handle both dict and GraphState objects
+        if isinstance(final_state, dict):
+            if final_state.get('error'):
+                raise HTTPException(status_code=400, detail=final_state['error'])
+            if not final_state.get('job_matches'):
+                raise HTTPException(status_code=404, detail="No matching jobs found")
+            return final_state['job_matches']
+        else:
+            if hasattr(final_state, 'error') and final_state.error:
+                raise HTTPException(status_code=400, detail=final_state.error)
+            if not final_state.job_matches:
+                raise HTTPException(status_code=404, detail="No matching jobs found")
+            return final_state.job_matches
         
     except HTTPException as he:
         raise he

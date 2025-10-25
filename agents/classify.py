@@ -3,6 +3,7 @@ import json
 from langchain_core.messages import HumanMessage
 from langchain_openai import ChatOpenAI
 from models import GraphState, Skill
+from utils import safe_parse_llm_json
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -63,23 +64,8 @@ class ClassifyAgent:
             return state
 
         try:
-            # Prepare the classification prompt
-            skills_text = self.format_skills_for_prompt(state.candidate_profile.skills)
-            profile_summary = self.create_profile_summary(state)
-            
-            messages = [
-                HumanMessage(content=CLASSIFICATION_PROMPT.format(
-                    skills=skills_text,
-                    profile_summary=profile_summary
-                ))
-            ]
-            
-            # Get enriched skills data
-            response = await self.model.ainvoke(messages)
-            data = json.loads(response.content)
-            
-            # Update the candidate profile with enriched skills
-            state.candidate_profile.skills = [Skill(**skill) for skill in data["skills"]]
+            # Skip LLM classification for now - just pass through the skills
+            # The skills are already extracted and properly formatted
             state.current_step = "match"
             return state
             

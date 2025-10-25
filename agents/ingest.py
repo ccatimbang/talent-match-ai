@@ -24,24 +24,45 @@ class IngestAgent:
         self.model = model or ChatOpenAI(model="gpt-4-turbo-preview")
 
     def process_pdf(self, pdf_data: Union[str, bytes]) -> str:
-        """Extract text from PDF resume"""
+        """Extract text from PDF resume or handle text files"""
         try:
+            # Handle string input (already text)
+            if isinstance(pdf_data, str):
+                return clean_text(pdf_data)
+            
             # Handle bytes input
             if isinstance(pdf_data, bytes):
-                pdf_io = BytesIO(pdf_data)
-            else:
-                # Handle string input (e.g. base64)
-                pdf_io = BytesIO(pdf_data.encode())
+                # First, try to decode as text to check if it's a text file
+                try:
+                    text_content = pdf_data.decode('utf-8')
+                    # Check if it looks like text (not PDF)
+                    if len(text_content) > 0 and not text_content.startswith('%PDF'):
+                        # It's a text file, not a PDF
+                        return clean_text(text_content)
+                except UnicodeDecodeError:
+                    pass
                 
-            reader = PdfReader(pdf_io)
-            text = ""
-            for page in reader.pages:
-                text += page.extract_text()
-                
-            if not text.strip():
-                raise ValueError("No text extracted from PDF")
-                
-            return clean_text(text)
+                # If not text, try to process as PDF
+                try:
+                    pdf_io = BytesIO(pdf_data)
+                    reader = PdfReader(pdf_io)
+                    text = ""
+                    for page in reader.pages:
+                        text += page.extract_text()
+                        
+                    if not text.strip():
+                        raise ValueError("No text extracted from PDF")
+                        
+                    return clean_text(text)
+                except Exception as pdf_error:
+                    # If PDF processing fails, try to decode as text anyway
+                    try:
+                        text_content = pdf_data.decode('utf-8')
+                        return clean_text(text_content)
+                    except UnicodeDecodeError:
+                        raise ValueError(f"Failed to process as PDF or text: {str(pdf_error)}")
+            
+            raise ValueError("Invalid input type")
         except Exception as e:
             raise ValueError(f"Failed to process PDF: {str(e)}")
 

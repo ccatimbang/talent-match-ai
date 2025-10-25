@@ -63,6 +63,105 @@
                 {"name": "MLOps", "level": "intermediate"}
             ],
             "min_experience_years": 6
+        },
+        {
+            "id": "ml-senior-01",
+            "title": "Senior Machine Learning Engineer",
+            "description": "Lead ML model development and deployment for production systems. Focus on NLP, computer vision, and large-scale model training.",
+            "required_skills": [
+                {"name": "Python", "level": "expert"},
+                {"name": "TensorFlow", "level": "expert"},
+                {"name": "PyTorch", "level": "expert"},
+                {"name": "Machine Learning", "level": "expert"}
+            ],
+            "preferred_skills": [
+                {"name": "AWS", "level": "expert"},
+                {"name": "Docker", "level": "expert"},
+                {"name": "LangChain", "level": "intermediate"}
+            ],
+            "min_experience_years": 5
+        },
+        {
+            "id": "frontend-lead-01",
+            "title": "Lead Frontend Engineer",
+            "description": "Lead frontend development for modern web applications. Focus on React ecosystem, performance optimization, and team leadership.",
+            "required_skills": [
+                {"name": "JavaScript", "level": "expert"},
+                {"name": "React", "level": "expert"},
+                {"name": "TypeScript", "level": "expert"},
+                {"name": "Frontend Architecture", "level": "expert"}
+            ],
+            "preferred_skills": [
+                {"name": "Node.js", "level": "intermediate"},
+                {"name": "GraphQL", "level": "intermediate"},
+                {"name": "Webpack", "level": "intermediate"}
+            ],
+            "min_experience_years": 6
+        },
+        {
+            "id": "java-senior-01",
+            "title": "Senior Java Developer",
+            "description": "Develop enterprise Java applications using Spring framework. Focus on microservices architecture and distributed systems.",
+            "required_skills": [
+                {"name": "Java", "level": "expert"},
+                {"name": "Spring Boot", "level": "expert"},
+                {"name": "Microservices", "level": "expert"}
+            ],
+            "preferred_skills": [
+                {"name": "Kafka", "level": "intermediate"},
+                {"name": "Docker", "level": "intermediate"},
+                {"name": "PostgreSQL", "level": "intermediate"}
+            ],
+            "min_experience_years": 7
+        },
+        {
+            "id": "cpp-systems-01",
+            "title": "Senior C++ Systems Engineer",
+            "description": "Develop high-performance systems software in C++. Focus on low-level programming, memory management, and performance optimization.",
+            "required_skills": [
+                {"name": "C++", "level": "expert"},
+                {"name": "Systems Programming", "level": "expert"},
+                {"name": "Memory Management", "level": "expert"}
+            ],
+            "preferred_skills": [
+                {"name": "Linux Kernel", "level": "intermediate"},
+                {"name": "Assembly", "level": "intermediate"},
+                {"name": "Performance Profiling", "level": "intermediate"}
+            ],
+            "min_experience_years": 8
+        },
+        {
+            "id": "data-scientist-01",
+            "title": "Senior Data Scientist",
+            "description": "Lead data science initiatives and build predictive models. Focus on statistical analysis, data visualization, and business intelligence.",
+            "required_skills": [
+                {"name": "Python", "level": "expert"},
+                {"name": "Statistics", "level": "expert"},
+                {"name": "Data Analysis", "level": "expert"}
+            ],
+            "preferred_skills": [
+                {"name": "R", "level": "intermediate"},
+                {"name": "SQL", "level": "expert"},
+                {"name": "Tableau", "level": "intermediate"}
+            ],
+            "min_experience_years": 5
+        },
+        {
+            "id": "devops-lead-01",
+            "title": "Lead DevOps Engineer",
+            "description": "Lead infrastructure and deployment automation. Focus on CI/CD, monitoring, and cloud architecture.",
+            "required_skills": [
+                {"name": "AWS", "level": "expert"},
+                {"name": "Docker", "level": "expert"},
+                {"name": "Kubernetes", "level": "expert"},
+                {"name": "CI/CD", "level": "expert"}
+            ],
+            "preferred_skills": [
+                {"name": "Terraform", "level": "intermediate"},
+                {"name": "Python", "level": "intermediate"},
+                {"name": "Monitoring", "level": "intermediate"}
+            ],
+            "min_experience_years": 6
         }
     ]
 } 

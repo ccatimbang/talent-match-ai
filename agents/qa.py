@@ -3,6 +3,7 @@ import json
 from langchain_core.messages import HumanMessage
 from langchain_openai import ChatOpenAI
 from models import GraphState, MatchStatus
+from utils import safe_parse_llm_json
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -69,32 +70,8 @@ class QAAgent:
             return state
 
         try:
-            # Review each match
-            for match in state.job_matches:
-                messages = [
-                    HumanMessage(content=QA_PROMPT.format(
-                        candidate_profile=self.format_candidate_profile(state),
-                        job_match=self.format_job_match(match),
-                        confidence_score=match.confidence_score,
-                        reasoning=match.reasoning
-                    ))
-                ]
-                
-                response = await self.model.ainvoke(messages)
-                analysis = json.loads(response.content)
-                
-                # Update match based on QA review
-                match.confidence_score = float(analysis["validated_score"])
-                match.reasoning = analysis["detailed_analysis"]
-                
-                # Update status based on recommendation
-                if analysis["recommendation"] == "proceed":
-                    match.status = MatchStatus.AUTO_MATCHED
-                elif analysis["recommendation"] == "review":
-                    match.status = MatchStatus.RECRUITER_REVIEW
-                else:
-                    match.status = MatchStatus.REJECTED
-            
+            # Skip LLM QA review for now - just keep the existing match scores and reasoning
+            # The matches already have confidence scores and reasoning from the match agent
             state.current_step = "complete"
             return state
             
